@@ -1,1 +1,1 @@
-# unityWebgl-multiplayer-with-mirror_example
+# unityWebgl-multiplayer-with-mirror-example

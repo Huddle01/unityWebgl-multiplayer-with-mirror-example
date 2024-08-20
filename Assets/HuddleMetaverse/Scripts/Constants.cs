@@ -6,7 +6,7 @@ public class Constants
 {
     public static string HuddleApiKey = "";
     public static string HuddldeProjectId = "";
-    public static string HuddleGetTokenUrl = "";
+    public static string HuddleGetTokenUrl = "https://huddle01-token-simulator.vercel.app/api?"; // only for testing
     public static string HuddleRoomId = "";
 
 }

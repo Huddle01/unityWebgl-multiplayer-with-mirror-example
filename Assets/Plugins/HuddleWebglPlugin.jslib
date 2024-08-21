@@ -8,7 +8,7 @@
     audioListener : null,
     soundObjects : null,
     peersMap : null,
-    autoConsume: false,
+    autoConsume: true,
     
 
     // Video Receive
@@ -438,7 +438,8 @@
             peerId: metadata.peerId,
             muteStatus: metadata.muteStatus,
             videoStatus : metadata.videoStatus,
-            name : metadata.name
+            name : metadata.name,
+            networkId:metadata.networkId
         });
 
     },
@@ -480,7 +481,8 @@
             peerId: metadata.peerId,
             muteStatus: metadata.muteStatus,
             videoStatus : metadata.videoStatus,
-            name : metadata.name
+            name : metadata.name,
+            networkId:metadata.networkId
         });
     },
     
@@ -722,7 +724,8 @@
             peerId: metadata.peerId,
             muteStatus: metadata.muteStatus,
             name : metadata.name,
-            videoStatus: metadata.videoStatus
+            videoStatus: metadata.videoStatus,
+            networkId:metadata.networkId
         });
     },
 

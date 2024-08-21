@@ -87,7 +87,7 @@ public class NavMeshPlayerController : MonoBehaviour
         if (IsLocalPlayer) 
         {
             string posJson = JsonUtility.ToJson(goalPos);
-            Huddle01Init.Instance.SendTextMessage(posJson);
+            Huddle01Core.Instance.SendData("*",posJson,"chat");
         }
     }
 
@@ -128,22 +128,22 @@ public class NavMeshPlayerController : MonoBehaviour
 
     private void SetPositonForSpatialComm(string peerId,Vector3 pos) 
     {
-        Huddle01Init.Instance.SetUpdatedPositionForSpatialComm(peerId, pos);
+        Huddle01Core.Instance.SetUpdatedPositionForSpatialComm(peerId, pos);
     }
 
     private void SetRotationForSpatialComm(string peerId, Vector3 rot) 
     {
-        Huddle01Init.Instance.SetUpdatedRotationForSpatialComm(peerId, rot);
+        Huddle01Core.Instance.SetUpdatedRotationForSpatialComm(peerId, rot);
     }
 
     private void SetLocalPlayerPositionForSpatialComm(Vector3 pos) 
     {
-        Huddle01Init.Instance.SetLocalPlayerUpdatedPositionForSpatialComm(pos);
+        Huddle01Core.Instance.SetLocalPlayerUpdatedPositionForSpatialComm(pos);
     }
 
     private void SetLocalPlayerRotationForSpatialComm(Vector3 rot)
     {
-        Huddle01Init.Instance.SetLocalPlayerUpdatedRotationForSpatialComm(rot);
+        Huddle01Core.Instance.SetLocalPlayerUpdatedRotationForSpatialComm(rot);
     }
 
     #endregion

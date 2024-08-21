@@ -31,7 +31,7 @@ public class MetaverseHuddleCommManager : MonoBehaviour
 
     void Start()
     {
-        Huddle01Init.Instance.Init(Constants.HuddldeProjectId);
+        Huddle01Core.Instance.Init(Constants.HuddldeProjectId);
     }
 
     private void Update()
@@ -49,30 +49,30 @@ public class MetaverseHuddleCommManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Huddle01Init.OnJoinRoom += OnJoinRoom;
-        Huddle01Init.LocalPeerId += OnLocalPeerIdReceived;
-        Huddle01Init.PeerAdded += OnPeerJoined;
-        Huddle01Init.PeerLeft += OnPeerLeft;
-        Huddle01Init.RoomClosed += OnRoomClosed;
-        Huddle01Init.PeerMetadata += OnPeerMetaDataUpdated;
-        Huddle01Init.OnResumePeerVideo += OnPeerVideoResume;
-        Huddle01Init.OnStopPeerVideo += OnPeerVideoStop;
-        Huddle01Init.OnMessageReceived += OnMessageReceived;
-        Huddle01Init.PeerMuted += OnPeerMuteStatusChanged;
+        Huddle01Core.OnJoinRoom += OnJoinRoom;
+        Huddle01Core.LocalPeerId += OnLocalPeerIdReceived;
+        Huddle01Core.PeerAdded += OnPeerJoined;
+        Huddle01Core.PeerLeft += OnPeerLeft;
+        Huddle01Core.RoomClosed += OnRoomClosed;
+        Huddle01Core.PeerMetadata += OnPeerMetaDataUpdated;
+        Huddle01Core.OnResumePeerVideo += OnPeerVideoResume;
+        Huddle01Core.OnStopPeerVideo += OnPeerVideoStop;
+        Huddle01Core.OnMessageReceived += OnMessageReceived;
+        Huddle01Core.PeerMuted += OnPeerMuteStatusChanged;
     }
 
     private void OnDisable()
     {
-        Huddle01Init.OnJoinRoom -= OnJoinRoom;
-        Huddle01Init.LocalPeerId -= OnLocalPeerIdReceived;
-        Huddle01Init.PeerAdded -= OnPeerJoined;
-        Huddle01Init.PeerLeft -= OnPeerLeft;
-        Huddle01Init.RoomClosed -= OnRoomClosed;
-        Huddle01Init.PeerMetadata -= OnPeerMetaDataUpdated;
-        Huddle01Init.OnResumePeerVideo -= OnPeerVideoResume;
-        Huddle01Init.OnStopPeerVideo -= OnPeerVideoStop;
-        Huddle01Init.OnMessageReceived -= OnMessageReceived;
-        Huddle01Init.PeerMuted -= OnPeerMuteStatusChanged;
+        Huddle01Core.OnJoinRoom -= OnJoinRoom;
+        Huddle01Core.LocalPeerId -= OnLocalPeerIdReceived;
+        Huddle01Core.PeerAdded -= OnPeerJoined;
+        Huddle01Core.PeerLeft -= OnPeerLeft;
+        Huddle01Core.RoomClosed -= OnRoomClosed;
+        Huddle01Core.PeerMetadata -= OnPeerMetaDataUpdated;
+        Huddle01Core.OnResumePeerVideo -= OnPeerVideoResume;
+        Huddle01Core.OnStopPeerVideo -= OnPeerVideoStop;
+        Huddle01Core.OnMessageReceived -= OnMessageReceived;
+        Huddle01Core.PeerMuted -= OnPeerMuteStatusChanged;
     }
 
     private void OnPeerMuteStatusChanged(string peerId, bool isMuted)
@@ -197,7 +197,7 @@ public class MetaverseHuddleCommManager : MonoBehaviour
     {
         Debug.Log($"LocalPLayer val {LocalPlayer==null}");
         MetaverseThirdPersonController playerController = LocalPlayer.GetComponent<MetaverseThirdPersonController>();
-        Huddle01Init.Instance.GetLocalPeerId();
+        Huddle01Core.Instance.GetLocalPeerId();
         LoadingImage.SetActive(false);
     }
 
@@ -206,12 +206,12 @@ public class MetaverseHuddleCommManager : MonoBehaviour
     public void UpdateLocalPeerMetaData(PeerMetadata peerMetadata)
     {
         Debug.Log($"UpdateLocalPeerMetaData : {JsonConvert.SerializeObject(peerMetadata)}");
-        Huddle01Init.Instance.UpdateLocalPeerMetaData(JsonConvert.SerializeObject(peerMetadata));
+        Huddle01Core.Instance.UpdateLocalPeerMetaData(JsonConvert.SerializeObject(peerMetadata));
     }
 
     public void JoinRoom()
     {
-        Huddle01Init.Instance.JoinRoom(Constants.HuddleRoomId, LocalPlayer.GetComponent<MetaverseThirdPersonController>().HuddleToken);
+        Huddle01Core.Instance.JoinRoom(Constants.HuddleRoomId, LocalPlayer.GetComponent<MetaverseThirdPersonController>().HuddleToken);
     }
 
     public void MuteMic(bool shouldMute)
@@ -220,7 +220,7 @@ public class MetaverseHuddleCommManager : MonoBehaviour
         MetaverseThirdPersonController userSectionRef = LocalPlayer.GetComponent<MetaverseThirdPersonController>();
         userSectionRef.UserInfo.Metadata.MuteStatus = shouldMute;
         userSectionRef.UpdateMetadata(userSectionRef.UserInfo.Metadata);
-        Huddle01Init.Instance.MuteMic(shouldMute, userSectionRef.UserInfo.Metadata);
+        Huddle01Core.Instance.MuteMic(shouldMute, userSectionRef.UserInfo.Metadata);
     }
 
 
@@ -245,7 +245,7 @@ public class MetaverseHuddleCommManager : MonoBehaviour
 
     public void LeaveRoom()
     {
-        Huddle01Init.Instance.LeaveRoom();
+        Huddle01Core.Instance.LeaveRoom();
         OnRoomClosed();
     }
 

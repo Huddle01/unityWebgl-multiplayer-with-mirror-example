@@ -58,34 +58,34 @@ namespace Huddle01.Sample
         void Start()
         {
             _headerText.text = $"RoomID : {_roomId}";
-            Huddle01Init.Instance.Init(_projectId);
+            Huddle01Core.Instance.Init(_projectId);
         }
 
         private void OnEnable()
         {
-            Huddle01Init.OnJoinRoom += OnJoinRoom;
-            Huddle01Init.LocalPeerId += OnLocalPeerIdReceived;
-            Huddle01Init.PeerAdded += OnPeerJoined;
-            Huddle01Init.PeerLeft += OnPeerLeft;
-            Huddle01Init.PeerMuted += OnPeerMuted;
-            Huddle01Init.RoomClosed += OnRoomClosed;
-            Huddle01Init.PeerMetadata += OnPeerMetaDataUpdated;
-            Huddle01Init.OnResumePeerVideo += OnPeerVideoResume;
-            Huddle01Init.OnStopPeerVideo += OnPeerVideoStop;
+            Huddle01Core.OnJoinRoom += OnJoinRoom;
+            Huddle01Core.LocalPeerId += OnLocalPeerIdReceived;
+            Huddle01Core.PeerAdded += OnPeerJoined;
+            Huddle01Core.PeerLeft += OnPeerLeft;
+            Huddle01Core.PeerMuted += OnPeerMuted;
+            Huddle01Core.RoomClosed += OnRoomClosed;
+            Huddle01Core.PeerMetadata += OnPeerMetaDataUpdated;
+            Huddle01Core.OnResumePeerVideo += OnPeerVideoResume;
+            Huddle01Core.OnStopPeerVideo += OnPeerVideoStop;
         }
 
 
         private void OnDisable()
         {
-            Huddle01Init.OnJoinRoom -= OnJoinRoom;
-            Huddle01Init.LocalPeerId -= OnLocalPeerIdReceived;
-            Huddle01Init.PeerAdded -= OnPeerJoined;
-            Huddle01Init.PeerLeft -= OnPeerLeft;
-            Huddle01Init.PeerMuted -= OnPeerMuted;
-            Huddle01Init.RoomClosed -= OnRoomClosed;
-            Huddle01Init.PeerMetadata -= OnPeerMetaDataUpdated;
-            Huddle01Init.OnResumePeerVideo -= OnPeerVideoResume;
-            Huddle01Init.OnStopPeerVideo -= OnPeerVideoStop;
+            Huddle01Core.OnJoinRoom -= OnJoinRoom;
+            Huddle01Core.LocalPeerId -= OnLocalPeerIdReceived;
+            Huddle01Core.PeerAdded -= OnPeerJoined;
+            Huddle01Core.PeerLeft -= OnPeerLeft;
+            Huddle01Core.PeerMuted -= OnPeerMuted;
+            Huddle01Core.RoomClosed -= OnRoomClosed;
+            Huddle01Core.PeerMetadata -= OnPeerMetaDataUpdated;
+            Huddle01Core.OnResumePeerVideo -= OnPeerVideoResume;
+            Huddle01Core.OnStopPeerVideo -= OnPeerVideoStop;
         }
 
         #region Callbacks
@@ -160,7 +160,7 @@ namespace Huddle01.Sample
             _joinRomSection.SetActive(false);
             _userSectionSection.SetActive(true);
 
-            Huddle01Init.Instance.GetLocalPeerId();
+            Huddle01Core.Instance.GetLocalPeerId();
         }
 
         private void OnLocalPeerIdReceived(string peerId)
@@ -264,13 +264,13 @@ namespace Huddle01.Sample
         public void JoinRoom()
         {
             Debug.Log("Join Room Clicked");
-            Huddle01Init.Instance.JoinRoom(_roomInputFeild.text, _tokenInputFeild.text);
+            Huddle01Core.Instance.JoinRoom(_roomInputFeild.text, _tokenInputFeild.text);
         }
 
         public void UpdateLocalPeerMetaData(PeerMetadata peerMetadata)
         {
             Debug.Log($"UpdateLocalPeerMetaData : {JsonConvert.SerializeObject(peerMetadata)}");
-            Huddle01Init.Instance.UpdateLocalPeerMetaData(JsonConvert.SerializeObject(peerMetadata));
+            Huddle01Core.Instance.UpdateLocalPeerMetaData(JsonConvert.SerializeObject(peerMetadata));
         }
 
         public void MuteMic(bool shouldMute)
@@ -280,7 +280,7 @@ namespace Huddle01.Sample
             Debug.Log($"Mute mic metadata : {JsonConvert.SerializeObject(userSectionRef.UserInfo.Metadata)}");
             userSectionRef.UserInfo.Metadata.MuteStatus = shouldMute;
             userSectionRef.UpdateMetadata(userSectionRef.UserInfo.Metadata);
-            Huddle01Init.Instance.MuteMic(shouldMute, userSectionRef.UserInfo.Metadata);
+            Huddle01Core.Instance.MuteMic(shouldMute, userSectionRef.UserInfo.Metadata);
         }
 
 
@@ -291,7 +291,7 @@ namespace Huddle01.Sample
             Debug.Log($"Mute mic metadata : {JsonConvert.SerializeObject(userSectionRef.UserInfo.Metadata)}");
             userSectionRef.UserInfo.Metadata.VideoStatus = enableVideo;
             userSectionRef.UpdateMetadata(userSectionRef.UserInfo.Metadata);
-            Huddle01Init.Instance.EnableVideo(enableVideo, userSectionRef.UserInfo.Metadata);
+            Huddle01Core.Instance.EnableVideo(enableVideo, userSectionRef.UserInfo.Metadata);
         }
 
         public void OnMuteMicClicked()
@@ -306,13 +306,13 @@ namespace Huddle01.Sample
 
         public void LeaveRoom()
         {
-            Huddle01Init.Instance.LeaveRoom();
+            Huddle01Core.Instance.LeaveRoom();
             DestroyAllChildren(_userSectionContentHolder);
         }
 
         public void SendMessageToRoom() 
         {
-            Huddle01Init.Instance.SendTextMessage("Hello guyzz");
+            Huddle01Core.Instance.SendData("*","Hello guyzz","chat");
         }
 
         #endregion

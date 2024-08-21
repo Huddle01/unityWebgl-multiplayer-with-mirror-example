@@ -52,37 +52,37 @@ public class SpatialCommManager : MonoBehaviour
     void Start()
     {
         _headerText.text = $"RoomID : {_roomId}";
-        Huddle01Init.Instance.Init(_projectId);
+        Huddle01Core.Instance.Init(_projectId);
     }
 
 
 
     private void OnEnable()
     {
-        Huddle01Init.OnJoinRoom += OnJoinRoom;
-        Huddle01Init.LocalPeerId += OnLocalPeerIdReceived;
-        Huddle01Init.PeerAdded += OnPeerJoined;
-        Huddle01Init.PeerLeft += OnPeerLeft;
-        Huddle01Init.RoomClosed += OnRoomClosed;
-        Huddle01Init.PeerMetadata += OnPeerMetaDataUpdated;
-        Huddle01Init.OnResumePeerVideo += OnPeerVideoResume;
-        Huddle01Init.OnStopPeerVideo += OnPeerVideoStop;
-        Huddle01Init.OnMessageReceived += OnMessageReceived;
-        Huddle01Init.PeerMuted += OnPeerMuteStatusChanged;
+        Huddle01Core.OnJoinRoom += OnJoinRoom;
+        Huddle01Core.LocalPeerId += OnLocalPeerIdReceived;
+        Huddle01Core.PeerAdded += OnPeerJoined;
+        Huddle01Core.PeerLeft += OnPeerLeft;
+        Huddle01Core.RoomClosed += OnRoomClosed;
+        Huddle01Core.PeerMetadata += OnPeerMetaDataUpdated;
+        Huddle01Core.OnResumePeerVideo += OnPeerVideoResume;
+        Huddle01Core.OnStopPeerVideo += OnPeerVideoStop;
+        Huddle01Core.OnMessageReceived += OnMessageReceived;
+        Huddle01Core.PeerMuted += OnPeerMuteStatusChanged;
     }    
 
     private void OnDisable()
     {
-        Huddle01Init.OnJoinRoom -= OnJoinRoom;
-        Huddle01Init.LocalPeerId -= OnLocalPeerIdReceived;
-        Huddle01Init.PeerAdded -= OnPeerJoined;
-        Huddle01Init.PeerLeft -= OnPeerLeft;
-        Huddle01Init.RoomClosed -= OnRoomClosed;
-        Huddle01Init.PeerMetadata -= OnPeerMetaDataUpdated;
-        Huddle01Init.OnResumePeerVideo -= OnPeerVideoResume;
-        Huddle01Init.OnStopPeerVideo -= OnPeerVideoStop;
-        Huddle01Init.OnMessageReceived -= OnMessageReceived;
-        Huddle01Init.PeerMuted -= OnPeerMuteStatusChanged;
+        Huddle01Core.OnJoinRoom -= OnJoinRoom;
+        Huddle01Core.LocalPeerId -= OnLocalPeerIdReceived;
+        Huddle01Core.PeerAdded -= OnPeerJoined;
+        Huddle01Core.PeerLeft -= OnPeerLeft;
+        Huddle01Core.RoomClosed -= OnRoomClosed;
+        Huddle01Core.PeerMetadata -= OnPeerMetaDataUpdated;
+        Huddle01Core.OnResumePeerVideo -= OnPeerVideoResume;
+        Huddle01Core.OnStopPeerVideo -= OnPeerVideoStop;
+        Huddle01Core.OnMessageReceived -= OnMessageReceived;
+        Huddle01Core.PeerMuted -= OnPeerMuteStatusChanged;
     }
 
     // Update is called once per frame
@@ -156,9 +156,9 @@ public class SpatialCommManager : MonoBehaviour
         _inGameOptionsPanel.SetActive(true);
 
         ClickMoveNavAgentRef.LocalPlayer = playerController;
-        Huddle01Init.Instance.SetupSpatialCommForLocalPeer();
+        Huddle01Core.Instance.SetupSpatialCommForLocalPeer();
         playerController.IsSpatialComm = true;
-        Huddle01Init.Instance.GetLocalPeerId();
+        Huddle01Core.Instance.GetLocalPeerId();
     }
 
     private void OnLocalPeerIdReceived(string peerId)
@@ -200,14 +200,14 @@ public class SpatialCommManager : MonoBehaviour
             {
                 remotePlayer.IsSpatialComm = false;
                 //disable spatial comm
-                Huddle01Init.Instance.DisableSpatialAudioForPeer(peerId);
+                Huddle01Core.Instance.DisableSpatialAudioForPeer(peerId);
             }
             else
             {
                 //setup spatial comm
                 remotePlayer.IsSpatialComm = true;
                 Debug.Log($"Setting up spatial comm for peer {peerId}");
-                Huddle01Init.Instance.SetupSpatialCommForRemotePeer(peerId);
+                Huddle01Core.Instance.SetupSpatialCommForRemotePeer(peerId);
             }
         }
         else
@@ -324,13 +324,13 @@ public class SpatialCommManager : MonoBehaviour
         _roomId = _roomIdInputField.text;
         _token = _tokenInputField.text;
         _name = _nameInputFeild.text;
-        Huddle01Init.Instance.JoinRoom(_roomId, _token);
+        Huddle01Core.Instance.JoinRoom(_roomId, _token);
     }
 
     public void UpdateLocalPeerMetaData(PeerMetadata peerMetadata)
     {
         Debug.Log($"UpdateLocalPeerMetaData : {JsonConvert.SerializeObject(peerMetadata)}");
-        Huddle01Init.Instance.UpdateLocalPeerMetaData(JsonConvert.SerializeObject(peerMetadata));
+        Huddle01Core.Instance.UpdateLocalPeerMetaData(JsonConvert.SerializeObject(peerMetadata));
     }
 
     public void MuteMic(bool shouldMute)
@@ -340,7 +340,7 @@ public class SpatialCommManager : MonoBehaviour
         Debug.Log($"Mute mic metadata : {JsonConvert.SerializeObject(userSectionRef.UserInfo.Metadata)}");
         userSectionRef.UserInfo.Metadata.MuteStatus = shouldMute;
         userSectionRef.UpdateMetadata(userSectionRef.UserInfo.Metadata);
-        Huddle01Init.Instance.MuteMic(shouldMute, userSectionRef.UserInfo.Metadata);
+        Huddle01Core.Instance.MuteMic(shouldMute, userSectionRef.UserInfo.Metadata);
     }
 
 
@@ -351,7 +351,7 @@ public class SpatialCommManager : MonoBehaviour
         Debug.Log($"Mute mic metadata : {JsonConvert.SerializeObject(userSectionRef.UserInfo.Metadata)}");
         userSectionRef.UserInfo.Metadata.VideoStatus = enableVideo;
         userSectionRef.UpdateMetadata(userSectionRef.UserInfo.Metadata);
-        Huddle01Init.Instance.EnableVideo(enableVideo, userSectionRef.UserInfo.Metadata);
+        Huddle01Core.Instance.EnableVideo(enableVideo, userSectionRef.UserInfo.Metadata);
     }
 
     public void OnMuteMicClicked()
@@ -366,7 +366,7 @@ public class SpatialCommManager : MonoBehaviour
 
     public void LeaveRoom()
     {
-        Huddle01Init.Instance.LeaveRoom();
+        Huddle01Core.Instance.LeaveRoom();
         OnRoomClosed();
     }
 

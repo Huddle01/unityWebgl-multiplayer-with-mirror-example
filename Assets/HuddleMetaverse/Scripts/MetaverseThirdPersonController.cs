@@ -86,7 +86,6 @@ public class MetaverseThirdPersonController : vThirdPersonController
         if (isLocalPlayer) 
         {
             MetaverseHuddleCommManager.Instance.LocalPlayer = this.gameObject;
-            LocalPlayerDataContainer.PlayerName = "Player" + Random.Range(100, 999);
             CmdSetupPlayer(LocalPlayerDataContainer.PlayerName);
             CmdSetHuddleToken(Constants.HuddleRoomId, Constants.HuddleApiKey);
         }
@@ -109,7 +108,7 @@ public class MetaverseThirdPersonController : vThirdPersonController
         HuddleToken = newToken;
         if (isLocalPlayer) 
         {
-            Huddle01Init.Instance.JoinRoom(Constants.HuddleRoomId, HuddleToken);
+            Huddle01Core.Instance.JoinRoom(Constants.HuddleRoomId, HuddleToken);
         }
         
     }

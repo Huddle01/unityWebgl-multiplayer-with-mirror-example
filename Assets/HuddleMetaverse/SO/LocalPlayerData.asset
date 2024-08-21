@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5ba88882010594f93018f0e05bde80, type: 3}
   m_Name: LocalPlayerData
   m_EditorClassIdentifier: 
-  PlayerName: ToDo
+  PlayerName: Guest
